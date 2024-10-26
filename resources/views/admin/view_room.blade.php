@@ -95,8 +95,8 @@
                                     </td>
 
                                     <td>
-                                        <a href="#" class="btn btn-success mb-1">Edit</a>
-                                        <a href="#" class="btn btn-danger">Delete</a>
+                                        <a href="{{url('update_room',$data->id)}}" class="btn btn-success mb-1">Edit</a>
+                                        <a href="{{url('delete_room',$data->id)}}" class="btn btn-danger" onclick="return confirm('Are you sure want to delete this?')">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -1,3 +1,13 @@
+<style>
+
+   .usr{
+      position: absolute;
+      top: 0;
+      right: -160px;
+   }
+
+</style>
+
 <div class="header">
     <div class="container">
 
@@ -6,7 +16,7 @@
              <div class="full">
                 <div class="center-desk">
                    <div class="logo">
-                      <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                      <a href="{{url('/')}}"><img src="images/logo.png" alt="#" /></a>
                    </div>
                 </div>
              </div>
@@ -20,7 +30,7 @@
                 <div class="collapse navbar-collapse" id="navbarsExample04">
                    <ul class="navbar-nav mr-auto">
                       <li class="nav-item active">
-                         <a class="nav-link" href="index.html">Home</a>
+                         <a class="nav-link" href="{{url('/')}}">Home</a>
                       </li>
                       <li class="nav-item">
                          <a class="nav-link" href="about.html">About</a>
@@ -37,8 +47,11 @@
 
                      @if (Route::has('login'))
                         @auth
-                           <x-app-layout>
-                           </x-app-layout>
+                           <div class="usr">
+                              <x-app-layout> 
+
+                              </x-app-layout>
+                           </div>
                         @else
                            <li class="nav-item">
                               <a class="btn btn-success mr-3" href="{{url('login')}}">Login</a>
