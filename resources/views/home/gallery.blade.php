@@ -1,53 +1,32 @@
-<div  class="gallery">
-    <div class="container">
-       <div class="row">
-          <div class="col-md-12">
-             <div class="titlepage">
-                <h2>gallery</h2>
-             </div>
-          </div>
-       </div>
-       <div class="row">
-          <div class="col-md-3 col-sm-6">
+<style>
+   .gallery_img img{
+      height: 250px;
+      width: 100%;
+      object-fit: cover;
+   }
+</style>
+
+<div class="gallery">
+   <div class="container">
+
+      <div class="row">
+         <div class="col-md-12">
+            <div class="titlepage text-center mb-4">
+               <h2>Gallery</h2>
+            </div>
+         </div>
+      </div>
+
+      <div class="row">
+        @foreach ($galleries as $gallery)
+          <div class="col-md-4 col-sm-6 mb-4">
              <div class="gallery_img">
-                <figure><img src="images/gallery1.jpg" alt="#"/></figure>
+                <img src="/gallery/{{$gallery->image}}" class="img-fluid rounded" alt="Gallery Img" />
              </div>
           </div>
-          <div class="col-md-3 col-sm-6">
-             <div class="gallery_img">
-                <figure><img src="images/gallery2.jpg" alt="#"/></figure>
-             </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-             <div class="gallery_img">
-                <figure><img src="images/gallery3.jpg" alt="#"/></figure>
-             </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-             <div class="gallery_img">
-                <figure><img src="images/gallery4.jpg" alt="#"/></figure>
-             </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-             <div class="gallery_img">
-                <figure><img src="images/gallery5.jpg" alt="#"/></figure>
-             </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-             <div class="gallery_img">
-                <figure><img src="images/gallery6.jpg" alt="#"/></figure>
-             </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-             <div class="gallery_img">
-                <figure><img src="images/gallery7.jpg" alt="#"/></figure>
-             </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-             <div class="gallery_img">
-                <figure><img src="images/gallery8.jpg" alt="#"/></figure>
-             </div>
-          </div>
-       </div>
-    </div>
- </div>
+        @endforeach
+      </div>
+      
+   </div>
+</div>
+

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Room;
 use App\Models\User;
+use App\Models\Gallery;
 
 
 use Illuminate\Http\Request;
@@ -35,8 +36,9 @@ class AdminController extends Controller
     public function home()
     {
         $rooms = Room::all();
+        $galleries = Gallery::all();
 
-        return view('home.index',compact('rooms'));
+        return view('home.index',compact('rooms','galleries'));
     }
 
 
@@ -130,5 +132,66 @@ class AdminController extends Controller
         $datas = Booking::all();
 
         return view('admin.bookings',compact('datas'));
+    }
+
+    public function delete_booking($id)
+    {
+        $data = Booking::find($id);
+        $data->delete();
+
+        return redirect()->back();
+    }
+
+    public function approved_booking($id)
+    {
+        $booking = Booking::find($id);
+        $booking->status = 'Approved';
+        $booking->save();
+
+        return redirect()->back();
+    }
+
+    public function declined_booking($id)
+    {
+        $booking = Booking::find($id);
+        $booking->status = 'Declined';
+        $booking->save();
+
+        return redirect()->back();
+    }
+
+    public function view_gallery()
+    {
+        $galleries = Gallery::all();
+
+        return view('admin.gallery',compact('galleries'));
+    }
+
+
+    public function upload_gallery(Request $request)
+    {
+        $gallery = new Gallery();
+        $image = $request->image;
+
+        if($image){
+            $imagename = time(). '.' .$image->getClientOriginalExtension();
+
+            $request->image->move('gallery',$imagename);
+
+            $gallery->image = $imagename;
+
+            $gallery->save();
+
+            return redirect()->back();
+        }
+    }
+    
+
+    public function delete_galleryimg($id)
+    {
+        $delimg = Gallery::find($id);
+        $delimg->delete();
+
+        return redirect()->back();
     }
 }

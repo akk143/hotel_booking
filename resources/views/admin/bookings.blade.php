@@ -85,6 +85,8 @@
                                 <th>Room Title</th>
                                 <th>Room Price</th>
                                 <th>Room Image</th>
+                                <th>Delete Booking</th>
+                                <th>Status Update</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,11 +99,29 @@
                                     <td class="date">{{$data->arrival_date}}</td>
                                     <td class="date">{{$data->start_date}}</td>
                                     <td class="date">{{$data->end_date}}</td>
-                                    <td>{{$data->status}}</td>
+                                    <td>
+                                        @if($data->status == 'Approved')
+                                            <span class="btn btn-success">Approved</span>
+                                        @elseif($data->status == 'Declined')
+                                            <span class="btn btn-danger">Declined</span>
+                                        @else
+                                            <span class="btn btn-secondary">Waiting</span>
+                                        @endif
+                                    </td>
                                     <td>{{$data->room->room_title}}</td>
                                     <td>${{$data->room->price}}</td>
+
                                     <td>
                                         <img src="/room/{{$data->room->image}}" alt="Room Image" />
+                                    </td>
+
+                                    <td>
+                                        <a href="{{url('delete_booking',$data->id)}}" class="btn btn-secondary" onclick="return confirm('Are you sure want to delete this?');">Delete</a>
+                                    </td>
+
+                                    <td>
+                                        <a href="{{url('approved_booking',$data->id)}}" class="btn btn-success mb-2">Approve</a>
+                                        <a href="{{url('declined_booking',$data->id)}}" class="btn btn-danger">Decline</a>
                                     </td>
                                 </tr>
                             @endforeach
