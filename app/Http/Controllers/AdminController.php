@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Contact;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Gallery;
+use App\Notifications\SendEmailNotification;
+use Notification;
 
 
 use Illuminate\Http\Request;
@@ -23,7 +26,8 @@ class AdminController extends Controller
 
             if($usertype == 'user'){
                 $rooms = Room::all();
-                return view('home.index',compact('rooms'));
+                $galleries = Gallery::all();
+                return view('home.index',compact('rooms','galleries'));
             }elseif($usertype == 'admin'){
                 return view('admin.index');
             }else{
@@ -194,4 +198,40 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
+
+    public function messages()
+    {
+        $messages = Contact::all();
+
+        return view('admin.messages',compact('messages'));
+    }
+
+    public function send_mail($id)
+    {
+        $mail = Contact::find($id);
+
+        return view('admin.send_mail',compact('mail'));
+    }
+
+    
+    public function mail_noti(Request $request,$id)
+    {
+       $noti = Contact::find($id);
+       
+       $details = 
+       [
+            'greeting' => $request->greeting,
+            'body' => $request->body,
+            'action_text' => $request->action_text,
+            'action_url' => $request->action_url,
+            'end_line' => $request->end_line,
+       ];
+
+       Notification::send($noti, new SendEmailNotification($details));
+
+       return redirect()->back();
+
+    }
+
 }

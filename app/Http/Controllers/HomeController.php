@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Room;
+
 use App\Models\Booking;
+use App\Models\Contact;
+use App\Models\Room;
+use App\Models\Gallery;
+
 
 class HomeController extends Controller
 {
@@ -52,5 +56,37 @@ class HomeController extends Controller
         }
     }
 
+    public function contacts(Request $request)
+    {
+        $contact = new Contact();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->message = $request->message;
+
+        $contact->save();
+
+        return redirect()->back()->with('message','Message Send Successfully');
+    }
+
+
+    public function our_room()
+    {
+        $rooms = Room::all();
+
+        return view('home.our_room',compact('rooms'));
+    }
+
+    public function hotel_gallery()
+    {
+        $galleries  = Gallery::all();
+
+        return view('home.hotel_gallery',compact('galleries'));
+    }
+
+    public function contact_us()
+    {
+        return view('home.contact_us');
+    }
 
 }
